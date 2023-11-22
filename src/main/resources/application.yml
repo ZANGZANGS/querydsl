@@ -1,7 +1,7 @@
 spring:
   datasource:
-    #url: jdbc:h2:tcp://localhost/~/datajpa
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:tcp://localhost/~/querydsl
+    #url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -11,8 +11,8 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        #show_sql: true
-        format_sql: true
+        #show_sql: true #system.out 출력
+        format_sql: true #logger 출력
 
 #  data:
 #    web:
