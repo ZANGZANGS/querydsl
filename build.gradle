@@ -48,11 +48,8 @@ tasks.named('test') {
 
 
 
+def generated = layout.buildDirectory.dir("generated/sources").get().asFile
 // gradle clean 시에 QClass 디렉토리 삭제
-clean {
-	delete file('src/main/generated')
-}
-//Q파일 생성 위치 설정
-//sourceSets.main.java.srcDirs += "$projectDir/build/generated"
-
-
+clean.delete(file(generated))
+//build 경로에 있는 Q파일을 import 처리 되도록 설정
+sourceSets.main.java.srcDirs += [ generated ]
