@@ -53,6 +53,6 @@ clean {
 	delete file('src/main/generated')
 }
 //Q파일 생성 위치 설정
-sourceSets.main.java.srcDirs += "$projectDir/build/generated"
+//sourceSets.main.java.srcDirs += "$projectDir/build/generated"
 
 
