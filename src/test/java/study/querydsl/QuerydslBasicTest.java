@@ -11,6 +11,7 @@ import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceContext;
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import study.querydsl.dto.MemberDto;
 import study.querydsl.dto.QMemberDto;
 import study.querydsl.dto.UserDto;
@@ -718,4 +720,54 @@ public class QuerydslBasicTest {
         return usernameEq(usernameCond).and(ageEq(ageCond));
     }
 
+    @Test
+    @DisplayName("bulkUpdate")
+    public void bulkUpdate(){
+        //given
+        long count = queryFactory
+                .update(member)
+                .set(member.username, "비화원")
+                .where(member.age.lt(28))
+                .execute();
+        //벌크 연산은 영속성 컨텍스트 상태를 무시하고 바로 DB에 쿼리를 날리기 때문에, 영속성 컨텍스트 초기화 해야한다.
+        em.flush();
+        em.clear();
+        //when
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .fetch();
+
+        for (Member member : result) {
+            System.out.println("member = "+ member);
+        }
+
+        //then
+    }
+
+    @Test
+    @DisplayName("bulkAdd")
+    public void bulkAdd(){
+        //given
+        long execute = queryFactory
+                .update(member)
+                .set(member.age, member.age.multiply(2))
+                .execute();
+
+        //when
+
+        //then
+    }
+
+    @Test
+    @DisplayName("buldDelete")
+    public void buldDelete(){
+        //given
+        long execute = queryFactory
+                .delete(member)
+                .where(member.age.gt(18))
+                .execute();
+        //when
+
+        //then
+    }
 }
