@@ -1,7 +1,6 @@
 package study.querydsl.repository;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -12,8 +11,6 @@ import study.querydsl.dto.MemberSearchCondition;
 import study.querydsl.dto.MemberTeamDto;
 import study.querydsl.dto.QMemberTeamDto;
 import study.querydsl.entity.Member;
-import study.querydsl.entity.QHello;
-import study.querydsl.entity.QMember;
 
 import java.util.List;
 import java.util.Optional;
@@ -100,7 +97,7 @@ public class MemberJpaRepository {
 
     }
 
-    public List<MemberTeamDto> serach(MemberSearchCondition condition) {
+    public List<MemberTeamDto> search(MemberSearchCondition condition) {
         return queryFactory
                 .select(new QMemberTeamDto(
                         member.id.as("memberId"),

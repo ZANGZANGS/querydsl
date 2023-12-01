@@ -4,7 +4,6 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 import study.querydsl.dto.MemberSearchCondition;
 import study.querydsl.dto.MemberTeamDto;
@@ -117,7 +116,7 @@ class MemberJpaRepositoryTest {
          * 불린빌더에 조건이 없으면 where문 없이 쿼리가 수행된다. (대참사가 발생할 수도 있다.)
          * 기본 디폴트 조건을 넣어주거나, 페이징을 하는게 안전하다.
          */
-        List<MemberTeamDto> result = memberJpaRepository.serach(condition);
+        List<MemberTeamDto> result = memberJpaRepository.search(condition);
 
         assertThat(result)
                 .extracting("username")
