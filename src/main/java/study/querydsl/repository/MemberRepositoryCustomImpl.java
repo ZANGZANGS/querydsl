@@ -99,8 +99,8 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
                 .fetch();
 
 //        long total =
-        JPAQuery<Member> countQuery = queryFactory
-                .select(member)
+        JPAQuery<Long> countQuery = queryFactory
+                .select(member.count())
                 .from(member)
                 .where(
                         usernameEq(condition.getUsername()),
@@ -111,7 +111,7 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 
 //        return new PageImpl<>(content,pageable,total);
 
-        return PageableExecutionUtils.getPage(content, pageable, countQuery.fetch()::size);
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
 
