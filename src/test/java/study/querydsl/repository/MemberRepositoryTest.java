@@ -122,6 +122,7 @@ class MemberRepositoryTest {
     }
 
     @Test
+    //querydsl에 의존하게 된다, 추천하지 않음
     public void querydslPredicateExecutor(){
         //given
         Team teamA = new Team("teamA");
